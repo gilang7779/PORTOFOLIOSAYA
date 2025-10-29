@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator anuitas</title>
+</head>
+<body>
+    <div class="Kalkulator">
+        <input id="display" readonly placeholder="Rp 0">
+
+        <div class="input">
+           <label>Jumlah Pinjaman</label>
+            <input type="Number" id="loan" placeholder="Contoh Rp 1000000">
+        </div>
+
+        <div class="input">
+            <label>Bunga Pertahun %</label>
+            <input type="number" id="rate" placeholder="Contoh 5">
+        </div>  
+
+        <div class="input">
+            <label>Lama cicilan</label>
+            <input type="number" id="time" placeholder="Contoh 12">
+        </div>
+
+        <div class="hasil">
+        <button onclick="calculateInstallment()" class="operator-button">=</button>
+        <button onclick="clearDisplay()" class="operator-button">C</button>
+      </div>
+    </div>
+    </div>
+  <script>
+    function calculateInstallment() {
+  const loan = parseFloat(document.getElementById("loan").value);
+  const annualRate = parseFloat(document.getElementById("rate").value);
+  const time = parseInt(document.getElementById("time").value);
+  const display = document.getElementById("display");
+  const explanation = document.getElementById("explanation");
+
+  if (isNaN(loan) || isNaN(annualRate) || isNaN(time) || loan <= 0 || annualRate < 0 || time <= 0) {
+    display.value = "Input error";
+    
+      
+    
+    return;
+  }
+
+  const monthlyRate = (annualRate / 100) / 12;
+  const installment = (loan * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -time));
+  
+  display.value = "Rp " + installment.toLocaleString("id-ID", { minimumFractionDigits: 2 });
+}
+function clearDisplay() {
+  document.getElementById("loan").value = "";
+  document.getElementById("rate").value = "";
+  document.getElementById("time").value = "";
+  document.getElementById("display").value = "Rp 0";
+  
+}
+  </script> 
+</body>
+</html>
